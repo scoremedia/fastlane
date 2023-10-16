@@ -198,6 +198,89 @@ describe Trainer do
                                 }
                               ])
       end
+
+      it "works as expected with xcresult with spaces with failures", requires_xcode: true do
+        tp = Trainer::TestParser.new("./trainer/spec/fixtures/Test.with_spaces_failures.xcresult")
+        expect(tp.data).to eq([
+                                {
+                                  project_path: "SpaceTests.xcodeproj",
+                                  target_name: "SpaceTestsTests",
+                                  test_name: "SpaceTestsTests",
+                                  configuration_name: "Test Scheme Action",
+                                  duration: 0.32009100914001465,
+                                  tests: [
+                                    {
+                                      identifier: "SpaceTestsSpec.a test with spaces, should always fail()",
+                                      name: "a test with spaces, should always fail()",
+                                      duration: 0.31961607933044434,
+                                      status: "Failure",
+                                      test_group: "SpaceTestsSpec",
+                                      guid: "",
+                                      failures: [
+                                        {
+                                          failure_message: "expected to equal <1>, got <2>\n (/Users/mahmood.tahir/Developer/SpaceTests/SpaceTestsTests/TestSpec.swift#CharacterRangeLen=0&EndingLineNumber=15&StartingLineNumber=15)",
+                                          file_name: "",
+                                          line_number: 0,
+                                          message: "",
+                                          performance_failure: {}
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      identifier: "SpaceTestsSpec.a test with spaces, should always pass()",
+                                      name: "a test with spaces, should always pass()",
+                                      duration: 0.0004749298095703125,
+                                      status: "Success",
+                                      test_group: "SpaceTestsSpec",
+                                      guid: ""
+                                    }
+                                  ],
+                                  number_of_tests: 2,
+                                  number_of_failures: 1,
+                                  number_of_skipped: 0,
+                                  number_of_tests_excluding_retries: 2,
+                                  number_of_failures_excluding_retries: 1,
+                                  number_of_retries: 0
+                                }
+                              ])
+      end
+
+      it "works as expected with xcresult with spaces without failures", requires_xcode: true do
+        tp = Trainer::TestParser.new("./trainer/spec/fixtures/Test.with_spaces.xcresult")
+        expect(tp.data).to eq([
+                                {
+                                  project_path: "SpaceTests.xcodeproj",
+                                  target_name: "SpaceTestsTests",
+                                  test_name: "SpaceTestsTests",
+                                  configuration_name: "Test Scheme Action",
+                                  duration: 0.001558065414428711,
+                                  tests: [
+                                    {
+                                      identifier: "SpaceTestsSpec.a test with spaces, should always pass()",
+                                      name: "a test with spaces, should always pass()",
+                                      duration: 0.0010260343551635742,
+                                      status: "Success",
+                                      test_group: "SpaceTestsSpec",
+                                      guid: ""
+                                    },
+                                    {
+                                      identifier: "SpaceTestsSpec.a test with spaces, should not fail()",
+                                      name: "a test with spaces, should not fail()",
+                                      duration: 0.0005320310592651367,
+                                      status: "Success",
+                                      test_group: "SpaceTestsSpec",
+                                      guid: ""
+                                    }
+                                  ],
+                                  number_of_tests: 2,
+                                  number_of_failures: 0,
+                                  number_of_skipped: 0,
+                                  number_of_tests_excluding_retries: 2,
+                                  number_of_failures_excluding_retries: 0,
+                                  number_of_retries: 0
+                                }
+                              ])
+      end
     end
   end
 end
